@@ -1,2 +1,2 @@
-# php_rest_api
+# PHP Rest API
 Rest API in PHP for tasks CRUD
