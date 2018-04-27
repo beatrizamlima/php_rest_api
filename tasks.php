@@ -9,11 +9,11 @@
 			if(!empty($_GET["task_id"]))
 			{
 				$task_id=intval($_GET["task_id"]);
-				task_id($task_id);
+				get_tasks($task_id);
 			}
 			else
 			{
-				task_id();
+				get_tasks();
 			}
 			break;
 		case 'POST':
@@ -39,8 +39,8 @@
 	function insert_task()
 	{
 		global $connection;
-		$task_name=$_POST["task_name"];
-		$query="INSERT INTO tasks SET task_name='{$task_name}'";
+		$task_name=$_POST["name"];
+		$query="INSERT INTO tasks SET name='{$task_name}'";
 		if(mysqli_query($connection, $query))
 		{
 			$response=array(
@@ -71,7 +71,7 @@
 		$result=mysqli_query($connection, $query);
 		while($row=mysqli_fetch_array($result))
 		{
-			$response[]=$row;
+			$response[]=array('name' => $row['name'], 'id' => $row['id']);
 		}
 		header('Content-Type: application/json');
 		echo json_encode($response);
